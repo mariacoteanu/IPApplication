@@ -26,8 +26,12 @@ public class ConfigurationPanel extends JPanel {
         fileChooser = new JFileChooser();
         importBtn.setBackground(Color.GREEN);
         refresh.setBackground(Color.GREEN);
+        JLabel label1 = new JLabel("Continent:",SwingConstants.CENTER);
+        JLabel label2 = new JLabel("Country:",SwingConstants.CENTER);
         add(importBtn);
+        add(label1);
         add(continent);
+        add(label2);
         add(country);
         add(refresh);
 
