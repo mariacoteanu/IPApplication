@@ -70,14 +70,11 @@ public class ConfigurationPanel extends JPanel {
 
         MainApp.PathOUT= Paths.get("", "src\\main\\resources\\out.csv").toString();
         frame.setVisible(false);
-        try{
+      
             Application.launch(MainApp.class);
-        }catch(Exception e){}
 
-        Platform.runLater(() -> {
 
-            MainApp.primaryStage.show();
-        });
+
 
     }
 
