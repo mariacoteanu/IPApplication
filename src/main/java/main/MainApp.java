@@ -2,6 +2,7 @@ package main;
 
 import com.opencsv.CSVReader;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -37,10 +38,12 @@ public class MainApp extends Application {
 
     public static String PathPoza;
     public static String PathOUT;
-
+    public static Stage primaryStage;
     @Override
     public void start(Stage primaryStage) throws Exception {
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        this.primaryStage=primaryStage;
+        Platform.setImplicitExit(false);
 
         //System.out.println(screenBounds);
         primaryStage.setTitle("Snake Results");
@@ -52,10 +55,12 @@ public class MainApp extends Application {
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
+        imageView.setFitHeight(primaryStage.getHeight()-100);
+        imageView.setFitWidth(primaryStage.getWidth() / 2-100);
 
         HBox hbox = new HBox(imageView);
-        hbox.setPrefWidth(primaryStage.getWidth() / 2);
-        hbox.setPrefHeight(primaryStage.getHeight()-100);
+        hbox.setMaxWidth(primaryStage.getWidth() / 2);
+        hbox.setMaxHeight(primaryStage.getHeight()-100);
         hbox.setLayoutX(5);
         hbox.setLayoutY(5);
 
@@ -79,7 +84,8 @@ public class MainApp extends Application {
             //---------------------------------------------------------
             //System.out.println("Here" + event.getX() + " " + event.getY());
             //----------------------------------------------------
-            primaryStage.close();
+            primaryStage.hide();
+            Platform.exit();
             new MainFrame().setVisible(true);
 
         });

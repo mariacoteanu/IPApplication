@@ -1,6 +1,7 @@
 package main.panels;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import main.MainApp;
 import main.frame.MainFrame;
 
@@ -10,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
+
+import static main.MainApp.primaryStage;
 
 public class ConfigurationPanel extends JPanel {
     final MainFrame frame;
@@ -67,7 +70,14 @@ public class ConfigurationPanel extends JPanel {
 
         MainApp.PathOUT= Paths.get("", "src\\main\\resources\\out.csv").toString();
         frame.setVisible(false);
-        Application.launch(MainApp.class);
+        try{
+            Application.launch(MainApp.class);
+        }catch(Exception e){}
+
+        Platform.runLater(() -> {
+
+            MainApp.primaryStage.show();
+        });
 
     }
 
