@@ -1,5 +1,7 @@
 package main.panels;
 
+import javafx.application.Application;
+import main.MainApp;
 import main.frame.MainFrame;
 
 import javax.imageio.ImageIO;
@@ -7,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class ConfigurationPanel extends JPanel {
     final MainFrame frame;
@@ -15,6 +18,7 @@ public class ConfigurationPanel extends JPanel {
     JTextField country = new JTextField();
     JFileChooser fileChooser;
     JButton refresh = new JButton("Refresh");
+    JButton submit = new JButton("Submit");
 
     public ConfigurationPanel(MainFrame frame) {
         this.frame = frame;
@@ -26,6 +30,7 @@ public class ConfigurationPanel extends JPanel {
         fileChooser = new JFileChooser();
         importBtn.setBackground(Color.GREEN);
         refresh.setBackground(Color.GREEN);
+        submit.setBackground(Color.GREEN);
         JLabel label1 = new JLabel("Continent:",SwingConstants.CENTER);
         JLabel label2 = new JLabel("Country:",SwingConstants.CENTER);
         add(importBtn);
@@ -34,11 +39,13 @@ public class ConfigurationPanel extends JPanel {
         add(label2);
         add(country);
         add(refresh);
+        add(submit);
 
         importBtn.addActionListener(this::load);
         continent.addActionListener(this::conti);
         country.addActionListener(this::tara);
         refresh.addActionListener(this::clear);
+        submit.addActionListener(this::goNext);
     }
 
     private void load(ActionEvent action){
@@ -48,11 +55,20 @@ public class ConfigurationPanel extends JPanel {
 
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             frame.canvas.image = ImageIO.read(fileChooser.getSelectedFile());
+            MainApp.PathPoza=fileChooser.getSelectedFile().getAbsolutePath();
             frame.canvas.repaint();
         }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void goNext(ActionEvent action){
+
+        MainApp.PathOUT= Paths.get("", "src\\main\\resources\\out.csv").toString();
+        frame.setVisible(false);
+        Application.launch(MainApp.class);
+
     }
 
     private void conti(ActionEvent action){
