@@ -75,8 +75,8 @@ public class ConfigurationPanel extends JPanel {
 
         MainApp.PathOUT= Paths.get("", "src\\main\\resources\\out.csv").toString();
         try {
-            Files.deleteIfExists(Paths.get("src\\main\\resources\\out.csv"));
-            PrintWriter pw = new PrintWriter("src\\main\\resources\\out.csv");
+            Files.deleteIfExists(Paths.get("src\\main\\resources\\in.csv"));
+            PrintWriter pw = new PrintWriter("src\\main\\resources\\in.csv");
 
             StringBuilder sb = new StringBuilder();
             String columns = "Continent, Country, Id";
