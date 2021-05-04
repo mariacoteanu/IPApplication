@@ -9,7 +9,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static main.MainApp.primaryStage;
@@ -69,24 +74,48 @@ public class ConfigurationPanel extends JPanel {
     private void goNext(ActionEvent action){
 
         MainApp.PathOUT= Paths.get("", "src\\main\\resources\\out.csv").toString();
+        try {
+            Files.deleteIfExists(Paths.get("src\\main\\resources\\out.csv"));
+            PrintWriter pw = new PrintWriter("src\\main\\resources\\out.csv");
+
+            StringBuilder sb = new StringBuilder();
+            String columns = "Continent, Country, Id";
+            sb.append(columns + "\n");
+
+            sb.append(frame.continentText+",");
+            sb.append(frame.countryText+",");
+            String path = MainApp.PathPoza;
+            String numePoza = path.substring(path.lastIndexOf("\\")+1, path.lastIndexOf("."));
+            frame.canvas.imageName = numePoza;
+            System.out.println("NumePoza:" + numePoza);
+            sb.append(numePoza);
+            sb.append('\n');
+
+            pw.write(sb.toString());
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         frame.setVisible(false);
       
-            Application.launch(MainApp.class);
-
-
-
+        Application.launch(MainApp.class);
 
     }
 
     private void conti(ActionEvent action){
         continent.setBounds(50,50, 150,20);
         frame.continentText = continent.getText();
+        continent.setVisible(true);
+        continent.setText("");
         System.out.println("Continent: " + frame.continentText);
     }
 
     private void tara(ActionEvent action){
         country.setBounds(50,50, 150,20);
         frame.countryText = country.getText();
+        country.setText("");
         System.out.println("Country: " + frame.countryText);
     }
 

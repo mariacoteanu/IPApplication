@@ -10,6 +10,7 @@ public class OutputPanel extends JPanel {
     final MainFrame frame;
 
     BufferedImage image; //the offscreen image
+    String imageName;
     Graphics2D graphics;
 
     private int W;
